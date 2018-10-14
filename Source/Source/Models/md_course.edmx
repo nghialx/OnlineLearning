@@ -27,6 +27,20 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="topic_blocks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topic_id" Type="int" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="responsive_class" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="created_by" Type="varchar" MaxLength="30" />
+          <Property Name="updated_date" Type="datetime" />
+          <Property Name="updated_by" Type="varchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="Topics">
           <Key>
             <PropertyRef Name="id" />
@@ -34,14 +48,26 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="course_id" Type="int" Nullable="false" />
           <Property Name="title" Type="nchar" MaxLength="10" />
-          <Property Name="overview" Type="nvarchar" MaxLength="500" />
+          <Property Name="overview" Type="nvarchar(max)" />
+          <Property Name="Intro" Type="nvarchar(max)" />
           <Property Name="parent_id" Type="int" />
-          <Property Name="content" Type="nvarchar(max)" />
           <Property Name="created_date" Type="datetime" />
           <Property Name="created_by" Type="varchar" MaxLength="30" />
           <Property Name="updated_date" Type="datetime" />
           <Property Name="updated_by" Type="varchar" MaxLength="30" />
         </EntityType>
+        <Association Name="FK_topic_blocks_Topics">
+          <End Role="Topics" Type="Self.Topics" Multiplicity="1" />
+          <End Role="topic_blocks" Type="Self.topic_blocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topics">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="topic_blocks">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Topics_Courses">
           <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
           <End Role="Topics" Type="Self.Topics" Multiplicity="*" />
@@ -57,7 +83,12 @@
         <EntityContainer Name="training_dbModelStoreContainer">
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="topic_blocks" EntityType="Self.topic_blocks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_topic_blocks_Topics" Association="Self.FK_topic_blocks_Topics">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="topic_blocks" EntitySet="topic_blocks" />
+          </AssociationSet>
           <AssociationSet Name="FK_Topics_Courses" Association="Self.FK_Topics_Courses">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Topics" EntitySet="Topics" />
@@ -97,14 +128,15 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="course_id" Type="Int32" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="overview" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="parent_id" Type="Int32" />
-          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="created_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="updated_date" Type="DateTime" Precision="3" />
           <Property Name="updated_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_Topics_Courses" FromRole="Topics" ToRole="Courses" />
+          <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="topic_blocks" Relationship="training_dbModel.FK_topic_blocks_Topics" FromRole="Topic" ToRole="topic_blocks" />
         </EntityType>
         <Association Name="FK_Topics_Courses">
           <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
@@ -126,7 +158,39 @@
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Topics" EntitySet="Topics" />
           </AssociationSet>
+          <EntitySet Name="topic_blocks" EntityType="training_dbModel.topic_blocks" />
+          <AssociationSet Name="FK_topic_blocks_Topics" Association="training_dbModel.FK_topic_blocks_Topics">
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="topic_blocks" EntitySet="topic_blocks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="topic_blocks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topic_id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="responsive_class" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Topic" Relationship="training_dbModel.FK_topic_blocks_Topics" FromRole="topic_blocks" ToRole="Topic" />
+        </EntityType>
+        <Association Name="FK_topic_blocks_Topics">
+          <End Type="training_dbModel.Topic" Role="Topic" Multiplicity="1" />
+          <End Type="training_dbModel.topic_blocks" Role="topic_blocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="topic_blocks">
+              <PropertyRef Name="topic_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -160,16 +224,31 @@
           <EntitySetMapping Name="Topics">
             <EntityTypeMapping TypeName="training_dbModel.Topic">
               <MappingFragment StoreEntitySet="Topics">
+                <ScalarProperty Name="Intro" ColumnName="Intro" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="course_id" ColumnName="course_id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="overview" ColumnName="overview" />
                 <ScalarProperty Name="parent_id" ColumnName="parent_id" />
-                <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="created_date" ColumnName="created_date" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="updated_date" ColumnName="updated_date" />
                 <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="topic_blocks">
+            <EntityTypeMapping TypeName="training_dbModel.topic_blocks">
+              <MappingFragment StoreEntitySet="topic_blocks">
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="responsive_class" ColumnName="responsive_class" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

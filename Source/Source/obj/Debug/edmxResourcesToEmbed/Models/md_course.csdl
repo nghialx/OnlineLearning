@@ -30,14 +30,15 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="course_id" Type="Int32" Nullable="false" />
     <Property Name="title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="overview" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="parent_id" Type="Int32" />
-    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="created_date" Type="DateTime" Precision="3" />
     <Property Name="created_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="updated_date" Type="DateTime" Precision="3" />
     <Property Name="updated_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_Topics_Courses" FromRole="Topics" ToRole="Courses" />
+    <Property Name="Intro" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="topic_blocks" Relationship="training_dbModel.FK_topic_blocks_Topics" FromRole="Topic" ToRole="topic_blocks" />
   </EntityType>
   <Association Name="FK_Topics_Courses">
     <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
@@ -59,5 +60,37 @@
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Topics" EntitySet="Topics" />
     </AssociationSet>
+    <EntitySet Name="topic_blocks" EntityType="training_dbModel.topic_blocks" />
+    <AssociationSet Name="FK_topic_blocks_Topics" Association="training_dbModel.FK_topic_blocks_Topics">
+      <End Role="Topic" EntitySet="Topics" />
+      <End Role="topic_blocks" EntitySet="topic_blocks" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="topic_blocks">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="topic_id" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="responsive_class" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="created_date" Type="DateTime" Precision="3" />
+    <Property Name="created_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="updated_date" Type="DateTime" Precision="3" />
+    <Property Name="updated_by" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Topic" Relationship="training_dbModel.FK_topic_blocks_Topics" FromRole="topic_blocks" ToRole="Topic" />
+  </EntityType>
+  <Association Name="FK_topic_blocks_Topics">
+    <End Type="training_dbModel.Topic" Role="Topic" Multiplicity="1" />
+    <End Type="training_dbModel.topic_blocks" Role="topic_blocks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="topic_blocks">
+        <PropertyRef Name="topic_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

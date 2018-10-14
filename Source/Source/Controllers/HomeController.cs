@@ -11,7 +11,7 @@ namespace Source.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.Title = "Online training system";
+            ViewBag.Title = "Resource system";
             return View();
         }
         // GET: About

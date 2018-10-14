@@ -28,5 +28,6 @@ namespace Source.Models
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<topic_blocks> topic_blocks { get; set; }
     }
 }

@@ -66,6 +66,10 @@ namespace Source
                         "~/Content/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js",
                         //Starrr
                         "~/Content/vendors/starrr/dist/starrr.js"
+                        ////PNotify
+                        //"~/Content/vendors/pnotify/dist/pnotify.js",
+                        //"~/Content/vendors/pnotify/dist/pnotify.buttons.js",
+                        //"~/Content/vendors/pnotify/dist/pnotify.nonblock.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/Script-custom-editor").Include(
@@ -92,6 +96,9 @@ namespace Source
                 "~/Content/vendors/select2/dist/css/select2.min.css",
                 "~/Content/vendors/switchery/dist/switchery.min.css",
                 "~/Content/vendors/starrr/dist/starrr.css"
+                //"~/Content/vendors/pnotify/dist/pnotify.css",
+                //"~/Content/vendors/pnotify/dist/pnotify.buttons.css",
+                //"~/Content/vendors/pnotify/dist/pnotify.nonblock.css"
 
                 ));
 

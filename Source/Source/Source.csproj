@@ -137,12 +137,6 @@
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
-    <Content Include="Content\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
-    <Content Include="Content\jHtmlArea\jHtmlArea.css" />
-    <Content Include="Content\jHtmlArea\jHtmlArea.Editor.css" />
-    <Content Include="Content\jHtmlArea\jHtmlArea.png" />
-    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
-    <Content Include="Content\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -3580,7 +3574,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CoursController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RichTextEditorViewModel.cs" />
+    <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3606,6 +3600,9 @@
       <DependentUpon>md_course.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Topic.cs">
+      <DependentUpon>md_course.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\topic_blocks.cs">
       <DependentUpon>md_course.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4470,6 +4467,11 @@
     <Content Include="Views\Shared\_Top_nav.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Cours\View.cshtml" />
+    <Content Include="Views\Topics\Create.cshtml" />
+    <Content Include="Views\Topics\Delete.cshtml" />
+    <Content Include="Views\Topics\Details.cshtml" />
+    <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Views\Topics\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

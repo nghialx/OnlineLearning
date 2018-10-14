@@ -28,16 +28,31 @@
     <EntitySetMapping Name="Topics">
       <EntityTypeMapping TypeName="training_dbModel.Topic">
         <MappingFragment StoreEntitySet="Topics">
+          <ScalarProperty Name="Intro" ColumnName="Intro" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="course_id" ColumnName="course_id" />
           <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="overview" ColumnName="overview" />
           <ScalarProperty Name="parent_id" ColumnName="parent_id" />
-          <ScalarProperty Name="content" ColumnName="content" />
           <ScalarProperty Name="created_date" ColumnName="created_date" />
           <ScalarProperty Name="created_by" ColumnName="created_by" />
           <ScalarProperty Name="updated_date" ColumnName="updated_date" />
           <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="topic_blocks">
+      <EntityTypeMapping TypeName="training_dbModel.topic_blocks">
+        <MappingFragment StoreEntitySet="topic_blocks">
+          <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+          <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+          <ScalarProperty Name="created_by" ColumnName="created_by" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="responsive_class" ColumnName="responsive_class" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="topic_id" ColumnName="topic_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

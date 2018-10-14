@@ -12,27 +12,18 @@ namespace Source.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Topic
+    public partial class topic_blocks
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Topic()
-        {
-            this.topic_blocks = new HashSet<topic_blocks>();
-        }
-    
         public int id { get; set; }
-        public int course_id { get; set; }
+        public int topic_id { get; set; }
         public string title { get; set; }
-        public string overview { get; set; }
-        public Nullable<int> parent_id { get; set; }
+        public string responsive_class { get; set; }
+        public string content { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> updated_date { get; set; }
         public string updated_by { get; set; }
-        public string Intro { get; set; }
     
-        public virtual Cours Cours { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<topic_blocks> topic_blocks { get; set; }
+        public virtual Topic Topic { get; set; }
     }
 }

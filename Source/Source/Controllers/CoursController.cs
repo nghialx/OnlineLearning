@@ -82,35 +82,34 @@ namespace Source.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                db.Entry(cours).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
 
-                    db.Entry(cours).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                
             }
             return View(cours);
         }
 
-        // GET: Cours/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cours cours = db.Courses.Find(id);
-            if (cours == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cours);
-        }
+        //// GET: Cours/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Cours cours = db.Courses.Find(id);
+        //    if (cours == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(cours);
+        //}
 
         // POST: Cours/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        //[HttpPost, ActionName("Delete")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
         {
             Cours cours = db.Courses.Find(id);
             db.Courses.Remove(cours);
